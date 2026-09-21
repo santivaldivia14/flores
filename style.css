@@ -1,0 +1,314 @@
+:root {
+  --sky-top: #fff3c4;
+  --sky-bottom: #ffe08a;
+  --stem: #4c8c3f;
+  --stem-dark: #366b2c;
+  --petal: #ffd23f;
+  --petal-dark: #f6b93b;
+  --center: #7a4a12;
+  --text: #5c3d10;
+  --cloud: rgba(255, 255, 255, 0.85);
+  --ground-a: #7fae4a;
+  --ground-b: #6b9a3d;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.scene {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+  padding: 2rem 1rem 0;
+}
+
+/* ---------- Nubes ---------- */
+
+.cloud {
+  position: absolute;
+  width: 90px;
+  height: 30px;
+  background: var(--cloud);
+  border-radius: 50px;
+}
+.cloud::before, .cloud::after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.cloud::before { width: 50px; height: 50px; top: -22px; left: 10px; }
+.cloud::after { width: 40px; height: 40px; top: -16px; right: 10px; }
+.c1 { top: 50px; left: -100px; animation: drift 42s linear infinite; }
+.c2 { top: 110px; left: -160px; animation: drift 58s linear infinite; animation-delay: -20s; transform: scale(0.7); }
+.c3 { top: 20px; left: -200px; animation: drift 68s linear infinite; animation-delay: -40s; transform: scale(0.5); }
+
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(100vw + 250px)); }
+}
+
+/* ---------- Título ---------- */
+
+.title-wrap {
+  text-align: center;
+  margin-bottom: 1rem;
+  z-index: 3;
+}
+
+#title, #subtitle {
+  color: var(--text);
+  margin: 0;
+  padding: 0.35rem 0.8rem;
+  border-radius: 12px;
+  outline: none;
+  cursor: text;
+  border: 1px dashed transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  display: inline-block;
+  max-width: 90vw;
+}
+#title { font-size: clamp(24px, 6vw, 42px); }
+#subtitle { font-size: clamp(13px, 3vw, 16px); opacity: 0.75; margin-top: 0.3rem; }
+
+#title:hover, #title:focus,
+#subtitle:hover, #subtitle:focus {
+  border-color: rgba(92, 61, 16, 0.35);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* ---------- Mariposas ---------- */
+
+.butterfly {
+  position: absolute;
+  font-size: 22px;
+  z-index: 4;
+  animation: flutter 9s ease-in-out infinite;
+}
+.b1 { top: 12%; left: 6%; }
+.b2 { top: 22%; left: 50%; animation-duration: 11s; animation-delay: -3s; }
+.b3 { top: 8%; left: 75%; animation-duration: 7.5s; animation-delay: -5.5s; }
+
+@keyframes flutter {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(50vw, 40px) rotate(10deg); }
+  50%  { transform: translate(60vw, 100px) rotate(-8deg); }
+  75%  { transform: translate(10vw, 50px) rotate(6deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* ---------- Jardín ---------- */
+
+.garden {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 20px;
+  z-index: 2;
+  max-width: 780px;
+  flex-wrap: wrap;
+}
+
+/* --- Flor grande central --- */
+
+.big-flower {
+  position: relative;
+  width: 160px;
+  height: 320px;
+  transform-origin: bottom center;
+  animation: sway-big 4.5s ease-in-out infinite;
+  z-index: 3;
+}
+
+@keyframes sway-big {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+
+.big-stem {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 12px;
+  height: 230px;
+  background: linear-gradient(to bottom, var(--stem), var(--stem-dark));
+  border-radius: 8px;
+  transform: translateX(-50%);
+}
+
+.big-leaf {
+  position: absolute;
+  width: 50px;
+  height: 26px;
+  background: var(--stem);
+  border-radius: 0 100% 0 100%;
+}
+.big-leaf.left { bottom: 90px; left: calc(50% - 46px); transform: rotate(18deg); }
+.big-leaf.right { bottom: 140px; left: calc(50% + 2px); transform: rotate(-18deg) scaleX(-1); }
+
+.big-bloom {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  transform: translateX(-50%);
+  animation: bob-big 3.4s ease-in-out infinite;
+}
+@keyframes bob-big {
+  0%, 100% { transform: translate(-50%, 0px); }
+  50% { transform: translate(-50%, -10px); }
+}
+
+.big-center {
+  width: 52px;
+  height: 52px;
+  top: 54px;
+  left: 54px;
+}
+
+/* --- Campo de flores pequeñas --- */
+
+.field {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(6px, 2.4vw, 18px);
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 620px;
+}
+
+.flower {
+  position: relative;
+  transform-origin: bottom center;
+  animation-name: sway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(var(--sway-neg, -5deg)); }
+  50% { transform: rotate(var(--sway-pos, 5deg)); }
+}
+
+/* --- Piezas compartidas (tallo, hojas, pétalos, centro) --- */
+
+.stem {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(to bottom, var(--stem), var(--stem-dark));
+  border-radius: 4px;
+  transform: translateX(-50%);
+}
+
+.leaf {
+  position: absolute;
+  background: var(--stem);
+  border-radius: 0 100% 0 100%;
+}
+.leaf.left { transform: rotate(15deg); }
+.leaf.right { transform: rotate(-15deg) scaleX(-1); }
+
+.bloom {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bob 3.2s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: translate(-50%, 0px); }
+  50% { transform: translate(-50%, -6px); }
+}
+
+.petal {
+  position: absolute;
+  background: linear-gradient(to bottom, var(--petal), var(--petal-dark));
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform-origin: 50% 100%;
+}
+
+.center {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #c98a2c, var(--center));
+  z-index: 2;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- Suelo ---------- */
+
+.ground {
+  width: 100%;
+  max-width: 800px;
+  height: 16px;
+  margin-top: 10px;
+  background: linear-gradient(to right, var(--ground-a), var(--ground-b), var(--ground-a));
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+/* ---------- Controles ---------- */
+
+.controls {
+  margin: 1.5rem 0 2rem;
+  z-index: 3;
+}
+
+.petal-btn {
+  border: none;
+  background: var(--petal-dark);
+  color: #4a2e08;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.petal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2);
+}
+.petal-btn:active {
+  transform: translateY(0px) scale(0.97);
+}
+
+/* ---------- Pétalos cayendo ---------- */
+
+.falling-petal {
+  position: fixed;
+  top: -20px;
+  width: 12px;
+  height: 16px;
+  background: linear-gradient(to bottom, var(--petal), var(--petal-dark));
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  pointer-events: none;
+  z-index: 6;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
