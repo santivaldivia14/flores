@@ -1,55 +1,353 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flor amarilla grande</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Para ti Behery 🌻</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="scene" id="scene">
+    <!-- =====================================================
+         INTRO
+    ====================================================== -->
 
-    <div class="cloud c1"></div>
-    <div class="cloud c2"></div>
-    <div class="cloud c3"></div>
+    <section class="intro" id="intro">
 
-    <header class="title-wrap">
-      <h1 id="title" contenteditable="true" spellcheck="false">Mi jardín de flores amarillas</h1>
-      <p id="subtitle" contenteditable="true" spellcheck="false">Toca aquí para escribir un subtítulo</p>
-    </header>
+        <div class="intro-content">
 
-    <div class="butterfly b1">🦋</div>
-    <div class="butterfly b2">🦋</div>
-    <div class="butterfly b3">🦋</div>
+            <div class="intro-flower">
+                🌻
+            </div>
 
-    <div class="garden">
+            <h1>
+                Tengo algo para ti...
+            </h1>
 
-      <div class="big-flower" id="bigFlower">
-        <div class="stem big-stem"></div>
-        <div class="leaf big-leaf left"></div>
-        <div class="leaf big-leaf right"></div>
-        <div class="bloom big-bloom">
-          <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-          <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-          <div class="petal"></div><div class="petal"></div>
-          <div class="center big-center"></div>
+            <p>
+                No es mucho, pero lo hice pensando en ti.
+            </p>
+
+            <button id="startButton">
+                ✨ Comenzar ✨
+            </button>
+
         </div>
-      </div>
 
-      <div class="field" id="field"></div>
+    </section>
+
+
+    <!-- =====================================================
+         UNIVERSO
+    ====================================================== -->
+
+    <main class="space" id="space">
+
+        <!-- Estrellas de fondo -->
+        <div class="stars"></div>
+
+
+        <!-- =================================================
+             TEXTOS
+        ================================================== -->
+
+        <div class="scene-title">
+            Un universo de flores amarillas...
+        </div>
+
+        <div class="scene-quote">
+
+            Porque incluso en el universo,<br>
+            mi lugar favorito siempre serás tú
+
+        </div>
+
+
+        <!-- =================================================
+             CONTROLES
+        ================================================== -->
+
+        
+
+
+        <!-- =================================================
+             ESCENA
+        ================================================== -->
+
+        <div class="galaxy-scene" id="galaxyScene">
+
+            <div class="galaxy-world" id="galaxyWorld">
+
+
+                <!-- =================================================
+                     POLVO Y ESTRELLAS DE LA GALAXIA
+                ================================================== -->
+
+                <div
+                    class="galaxy-particles"
+                    id="galaxyParticles">
+                </div>
+
+
+                <!-- =================================================
+                     GIRASOLES PEQUEÑOS
+                ================================================== -->
+
+                <div
+                    class="galaxy-flower-field"
+                    id="galaxyFlowerField">
+                </div>
+
+
+                <!-- =================================================
+                     GALAXIA CENTRAL
+                ================================================== -->
+
+                <div class="galaxy">
+
+
+                    <div class="flower flower1"
+     data-message="Porque incluso en los días oscuros, siempre hay una razón para sonreír. 🌻">
+    <div class="flower-visual bouquet-mini">
+        <span class="sunflower s1">🌻</span>
+        <span class="sunflower s2">🌻</span>
+        <span class="sunflower s3">🌻</span>
+    </div>
+</div>
+
+<div class="flower flower2"
+     data-message="Quería regalarte algo diferente, algo que pudieras descubrir poquito a poquito. 💛">
+    <div class="flower-visual bouquet-mini">
+        <span class="sunflower s1">🌻</span>
+        <span class="sunflower s2">🌻</span>
+        <span class="sunflower s3">🌻</span>
+    </div>
+</div>
+
+<div class="flower flower3"
+     data-message="Espero que estas flores te recuerden lo especial que eres. ✨">
+    <div class="flower-visual bouquet-mini">
+        <span class="sunflower s1">🌻</span>
+        <span class="sunflower s2">🌻</span>
+        <span class="sunflower s3">🌻</span>
+    </div>
+</div>
+
+<div class="flower flower4"
+     data-message="No importa qué tan lejos estén las estrellas, siempre hay una que brilla un poquito más. ⭐">
+    <div class="flower-visual bouquet-mini">
+        <span class="sunflower s1">🌻</span>
+        <span class="sunflower s2">🌻</span>
+        <span class="sunflower s3">🌻</span>
+    </div>
+</div>
+
+<div class="flower flower5"
+     data-message="Esta flor es para recordarte que siempre mereces momentos bonitos. 🌻">
+    <div class="flower-visual bouquet-mini">
+        <span class="sunflower s1">🌻</span>
+        <span class="sunflower s2">🌻</span>
+        <span class="sunflower s3">🌻</span>
+    </div>
+</div>
+
+<div class="flower flower6"
+     data-message="Y esta última... simplemente porque quería hacerte sonreír. 💛">
+    <div class="flower-visual bouquet-mini">
+        <span class="sunflower s1">🌻</span>
+        <span class="sunflower s2">🌻</span>
+        <span class="sunflower s3">🌻</span>
+    </div>
+</div>
+
+
+                    <!-- =================================================
+                         CENTRO
+                    ================================================== -->
+
+                    <div class="center">
+
+                        <div class="heart">
+                            💛
+                        </div>
+
+                        <p>
+                            Para ti
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PÉTALOS ESTÁTICOS
+        ====================================================== -->
+
+        <div
+            class="petals"
+            id="petals">
+        </div>
+
+
+        <!-- =====================================================
+             INSTRUCCIÓN
+        ====================================================== -->
+
+        <div class="galaxy-instruction">
+
+           
+
+            <span>
+                Descubre las flores
+            </span>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL DE FLORES
+    ====================================================== -->
+
+    <div
+        class="message-container"
+        id="messageContainer">
+
+        <div class="message-card">
+
+            <button
+                class="close-button"
+                id="closeButton"
+                type="button">
+
+                ×
+
+            </button>
+
+
+            <div class="message-flower">
+                🌻
+            </div>
+
+
+            <p id="messageText"></p>
+
+
+            <div class="message-heart">
+                💛
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="ground"></div>
 
-    <div class="controls">
-      <button id="petalsBtn" class="petal-btn">🌼 Soltar pétalos</button>
+    <!-- =====================================================
+         PANTALLA FINAL
+    ====================================================== -->
+
+    <div
+        class="final-container"
+        id="finalContainer">
+
+        <div class="final-card">
+
+            <div class="final-stars">
+                ✨ ✨ ✨
+            </div>
+
+
+            <div class="final-flower">
+                🌻
+            </div>
+
+
+            <h2>
+                Descubriste todas las flores
+            </h2>
+
+
+            <p class="final-subtitle">
+                Y ahora sí...
+            </p>
+
+
+            <p class="final-text">
+                Tengo algo más que decirte.
+            </p>
+
+
+            <button id="finalButton">
+                💛 Tengo algo más que decirte 💛
+            </button>
+
+        </div>
+
     </div>
 
-  </div>
 
-  <script src="script.js"></script>
+    <!-- =====================================================
+         MENSAJE FINAL DE AMOR
+    ====================================================== -->
+
+    <div
+        class="love-container"
+        id="loveContainer">
+
+        <div class="love-content">
+
+            <div class="love-flower">
+                🌻
+            </div>
+
+
+            <h1>
+                Para ti
+            </h1>
+
+
+            <p class="love-message">
+
+               <strong>Behery</strong>,y si después de recorrer todo este universo todavía te preguntas qué quería decirte… simplemente quería decirte que eres alguien muy especial para mí. 🌻💛
+
+            </p>
+
+
+            <p class="love-message">
+
+                Supongo que podría haberlo dicho simplemente por mensaje, pero eso habría sido demasiado fácil. Preferí hacerte recorrer todo un universo para llegar hasta aquí. 😌
+
+            </p>
+
+
+            <div class="love-heart">
+                💛
+            </div>
+
+
+            <p class="love-end">
+
+                Espero que la vida te sorprenda siempre de la manera más bonita, que cumplas todo lo que sueñas y que nunca te falten razones para sonreír. 🌻💛
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
 

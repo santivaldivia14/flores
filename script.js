@@ -1,149 +1,625 @@
-// ---------- Referencias ----------
-const field = document.getElementById('field');
-const scene = document.getElementById('scene');
-const petalsBtn = document.getElementById('petalsBtn');
-const bigFlower = document.getElementById('bigFlower');
-const titleEl = document.getElementById('title');
-const subtitleEl = document.getElementById('subtitle');
+/* =========================================================
+   REFERENCIAS
+========================================================= */
 
-const PETAL_COUNT = 6;
-const SMALL_FLOWER_COUNT = 10;
+const flowers =
+    document.querySelectorAll(".flower");
 
-// ---------- Crear una flor pequeña ----------
-function createFlower(index) {
-  const flower = document.createElement('div');
-  flower.className = 'flower';
+const messageContainer =
+    document.getElementById("messageContainer");
 
-  const height = 110 + Math.round(Math.sin(index * 1.7) * 18);
-  const size = 44 + Math.round(Math.cos(index * 1.3) * 8);
+const messageText =
+    document.getElementById("messageText");
 
-  flower.style.width = size + 'px';
-  flower.style.height = height + 'px';
-  flower.style.animationDuration = (3.4 + (index % 4) * 0.4) + 's';
-  flower.style.animationDelay = (-index * 0.5) + 's';
+const closeButton =
+    document.getElementById("closeButton");
 
-  const stem = document.createElement('div');
-  stem.className = 'stem';
-  stem.style.width = '5px';
-  stem.style.height = (height - size + 8) + 'px';
-  flower.appendChild(stem);
+const startButton =
+    document.getElementById("startButton");
 
-  const leafLeft = document.createElement('div');
-  leafLeft.className = 'leaf left';
-  leafLeft.style.width = '18px';
-  leafLeft.style.height = '10px';
-  leafLeft.style.bottom = Math.round(height * 0.28) + 'px';
-  leafLeft.style.left = 'calc(50% - 17px)';
-  flower.appendChild(leafLeft);
+const intro =
+    document.getElementById("intro");
 
-  const leafRight = document.createElement('div');
-  leafRight.className = 'leaf right';
-  leafRight.style.width = '18px';
-  leafRight.style.height = '10px';
-  leafRight.style.bottom = Math.round(height * 0.48) + 'px';
-  leafRight.style.left = 'calc(50% + 1px)';
-  flower.appendChild(leafRight);
+const space =
+    document.getElementById("space");
 
-  const bloom = document.createElement('div');
-  bloom.className = 'bloom';
-  bloom.style.width = size + 'px';
-  bloom.style.height = size + 'px';
-  bloom.style.animationDelay = (-index * 0.6) + 's';
+const finalContainer =
+    document.getElementById("finalContainer");
 
-  const petalW = size * 0.37;
-  const petalH = size * 0.54;
+const finalButton =
+    document.getElementById("finalButton");
 
-  for (let p = 0; p < PETAL_COUNT; p++) {
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    petal.style.width = petalW + 'px';
-    petal.style.height = petalH + 'px';
-    petal.style.top = (size * 0.23) + 'px';
-    petal.style.left = (size * 0.315) + 'px';
-    petal.style.transform = `rotate(${(360 / PETAL_COUNT) * p}deg)`;
-    bloom.appendChild(petal);
-  }
+const loveContainer =
+    document.getElementById("loveContainer");
 
-  const center = document.createElement('div');
-  center.className = 'center';
-  const centerSize = size * 0.31;
-  center.style.width = centerSize + 'px';
-  center.style.height = centerSize + 'px';
-  center.style.top = (size * 0.345) + 'px';
-  center.style.left = (size * 0.345) + 'px';
-  bloom.appendChild(center);
+const petalsContainer =
+    document.getElementById("petals");
 
-  flower.appendChild(bloom);
-  return flower;
-}
+const galaxyParticles =
+    document.getElementById("galaxyParticles");
 
-// ---------- Armar el campo ----------
-function renderField() {
-  field.innerHTML = '';
-  for (let i = 0; i < SMALL_FLOWER_COUNT; i++) {
-    field.appendChild(createFlower(i));
-  }
-}
+const galaxyFlowerField =
+    document.getElementById("galaxyFlowerField");
 
-// ---------- Pétalos cayendo desde arriba de toda la pantalla ----------
-function dropPetals() {
-  const total = 26;
-  for (let i = 0; i < total; i++) {
-    setTimeout(() => {
-      const petal = document.createElement('div');
-      petal.className = 'falling-petal';
-      petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.animationDuration = (4 + Math.random() * 3) + 's';
-      petal.style.opacity = 0.7 + Math.random() * 0.3;
-      scene.appendChild(petal);
-      petal.addEventListener('animationend', () => petal.remove());
-    }, i * 90);
-  }
-}
 
-// ---------- Pétalos que salen de la flor grande al presionar el botón ----------
-function burstFromBigFlower() {
-  const rect = bigFlower.getBoundingClientRect();
-  const originX = rect.left + rect.width / 2;
-  const originY = rect.top + rect.height * 0.35;
+/* =========================================================
+   FLORES DESCUBIERTAS
+========================================================= */
 
-  for (let i = 0; i < 12; i++) {
-    setTimeout(() => {
-      const petal = document.createElement('div');
-      petal.className = 'falling-petal';
-      petal.style.left = (originX + (Math.random() * 80 - 40)) + 'px';
-      petal.style.top = originY + 'px';
-      petal.style.animationDuration = (3 + Math.random() * 2) + 's';
-      scene.appendChild(petal);
-      petal.addEventListener('animationend', () => petal.remove());
-    }, i * 60);
-  }
-}
+const discoveredFlowers =
+    new Set();
 
-// ---------- Títulos editables ----------
-function setupEditable(el, placeholder) {
-  el.addEventListener('focus', () => {
-    if (el.textContent.trim() === placeholder) {
-      document.execCommand('selectAll', false, null);
+
+/* =========================================================
+   INICIAR EXPERIENCIA
+========================================================= */
+
+startButton.addEventListener(
+    "click",
+    () => {
+
+        intro.classList.add(
+            "hidden"
+        );
+
+        setTimeout(
+            () => {
+
+                space.classList.add(
+                    "visible"
+                );
+
+            },
+            300
+        );
+
     }
-  });
-  el.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      el.blur();
+);
+
+
+/* =========================================================
+   FLORES GRANDES
+========================================================= */
+
+flowers.forEach(
+    (flower, index) => {
+
+        /*
+         * No tienen animación.
+         */
+        flower.style.animation =
+            "none";
+
+
+        /*
+         * Hover.
+         */
+        flower.addEventListener(
+            "mouseenter",
+            () => {
+
+                flower.classList.add(
+                    "flower-hover"
+                );
+
+            }
+        );
+
+
+        flower.addEventListener(
+            "mouseleave",
+            () => {
+
+                flower.classList.remove(
+                    "flower-hover"
+                );
+
+            }
+        );
+
+
+        /*
+         * Click.
+         */
+        flower.addEventListener(
+            "click",
+            () => {
+
+                const message =
+                    flower.dataset.message;
+
+                const flowerNumber =
+                    index + 1;
+
+
+                /*
+                 * Guardar flor descubierta.
+                 */
+                discoveredFlowers.add(
+                    flowerNumber
+                );
+
+
+                /*
+                 * Marcar flor.
+                 */
+                flower.classList.add(
+                    "selected"
+                );
+
+
+                /*
+                 * Mostrar mensaje.
+                 */
+                messageText.innerHTML = `
+
+                    <span class="flower-number">
+                        Flor ${flowerNumber} de ${flowers.length}
+                    </span>
+
+                    <br><br>
+
+                    ${message}
+
+                `;
+
+
+                messageContainer.classList.add(
+                    "active"
+                );
+
+
+                console.log(
+                    `Flores descubiertas: ${discoveredFlowers.size}/${flowers.length}`
+                );
+
+            }
+        );
+
     }
-  });
+);
+
+
+/* =========================================================
+   CERRAR MENSAJE
+========================================================= */
+
+function closeMessage() {
+
+    messageContainer.classList.remove(
+        "active"
+    );
+
+
+    flowers.forEach(
+        (flower) => {
+
+            flower.classList.remove(
+                "selected"
+            );
+
+        }
+    );
+
+
+    /*
+     * Si ya descubrió las 6,
+     * mostrar pantalla final.
+     */
+    if (
+        discoveredFlowers.size ===
+        flowers.length
+    ) {
+
+        setTimeout(
+            () => {
+
+                finalContainer.classList.add(
+                    "active"
+                );
+
+            },
+            600
+        );
+
+    }
+
 }
 
-setupEditable(titleEl, 'Mi jardín de flores amarillas');
-setupEditable(subtitleEl, 'Toca aquí para escribir un subtítulo');
 
-// ---------- Eventos ----------
-petalsBtn.addEventListener('click', () => {
-  dropPetals();
-  burstFromBigFlower();
-});
+/* =========================================================
+   BOTÓN CERRAR
+========================================================= */
 
-// ---------- Inicio ----------
-renderField();
+closeButton.addEventListener(
+    "click",
+    closeMessage
+);
+
+
+/* =========================================================
+   CERRAR HACIENDO CLICK AFUERA
+========================================================= */
+
+messageContainer.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target ===
+            messageContainer
+        ) {
+
+            closeMessage();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CREAR ESTRELLAS Y POLVO
+========================================================= */
+
+function createGalaxy() {
+
+    /*
+     * Muchas partículas.
+     */
+    const galaxyParticleCount =
+        1200;
+
+
+    for (
+        let i = 0;
+        i < galaxyParticleCount;
+        i++
+    ) {
+
+        const particle =
+            document.createElement("div");
+
+
+        particle.classList.add(
+            "galaxy-particle"
+        );
+
+
+        /*
+         * Algunas estrellas serán
+         * más brillantes.
+         */
+        if (
+            Math.random() > 0.90
+        ) {
+
+            particle.classList.add(
+                "galaxy-bright"
+            );
+
+        }
+
+
+        /*
+         * Área grande.
+         */
+        const distance =
+            Math.pow(
+                Math.random(),
+                0.62
+            ) * 700;
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        /*
+         * Espiral.
+         */
+        const spiral =
+            angle +
+            distance * 0.012;
+
+
+        const randomX =
+            (Math.random() - 0.5) *
+            120;
+
+
+        const randomY =
+            (Math.random() - 0.5) *
+            90;
+
+
+        const x =
+            Math.cos(spiral) *
+            distance +
+            randomX;
+
+
+        const y =
+            Math.sin(spiral) *
+            distance *
+            0.52 +
+            randomY;
+
+
+        /*
+         * Tamaño.
+         */
+        const size =
+            1.5 +
+            Math.random() * 5;
+
+
+        const brightness =
+            0.35 +
+            Math.random() * 0.85;
+
+
+        particle.style.width =
+            `${size}px`;
+
+
+        particle.style.height =
+            `${size}px`;
+
+
+        particle.style.left =
+            `calc(50% + ${x}px)`;
+
+
+        particle.style.top =
+            `calc(50% + ${y}px)`;
+
+
+        particle.style.opacity =
+            brightness;
+
+
+        /*
+         * IMPORTANTE:
+         * sin animación.
+         */
+        particle.style.animation =
+            "none";
+
+
+        galaxyParticles.appendChild(
+            particle
+        );
+
+    }
+
+}
+
+
+createGalaxy();
+
+
+/* =========================================================
+   GIRASOLES PEQUEÑOS
+========================================================= */
+
+function createGalaxyFlowers() {
+
+    /*
+     * Muchos girasoles pequeños.
+     */
+    const totalFlowers =
+        180;
+
+
+    for (
+        let i = 0;
+        i < totalFlowers;
+        i++
+    ) {
+
+        const flower =
+            document.createElement("div");
+
+
+        flower.classList.add(
+            "galaxy-flower"
+        );
+
+
+        /*
+         * Área grande.
+         */
+        const distance =
+            80 +
+            Math.random() * 620;
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        /*
+         * Espiral.
+         */
+        const spiral =
+            angle +
+            distance * 0.014;
+
+
+        const spread =
+            (Math.random() - 0.5) *
+            100;
+
+
+        const x =
+            Math.cos(spiral) *
+            distance +
+            spread;
+
+
+        const y =
+            Math.sin(spiral) *
+            distance *
+            0.52 +
+            (Math.random() - 0.5) *
+            80;
+
+
+        /*
+         * Tamaño.
+         */
+        const size =
+            10 +
+            Math.random() * 14;
+
+
+        flower.innerHTML =
+            "🌻";
+
+
+        flower.style.left =
+            `calc(50% + ${x}px)`;
+
+
+        flower.style.top =
+            `calc(50% + ${y}px)`;
+
+
+        flower.style.fontSize =
+            `${size}px`;
+
+
+        /*
+         * Sin movimiento.
+         */
+        flower.style.animation =
+            "none";
+
+
+        flower.style.transform =
+            `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+
+
+        galaxyFlowerField.appendChild(
+            flower
+        );
+
+    }
+
+}
+
+
+createGalaxyFlowers();
+
+
+/* =========================================================
+   PÉTALOS ESTÁTICOS
+========================================================= */
+
+function createPetals() {
+
+    const totalPetals =
+        45;
+
+
+    for (
+        let i = 0;
+        i < totalPetals;
+        i++
+    ) {
+
+        const petal =
+            document.createElement("div");
+
+
+        petal.classList.add(
+            "petal"
+        );
+
+
+        const startX =
+            Math.random() * 100;
+
+
+        const startY =
+            10 +
+            Math.random() * 80;
+
+
+        const size =
+            5 +
+            Math.random() * 16;
+
+
+        petal.style.left =
+            `${startX}%`;
+
+
+        petal.style.top =
+            `${startY}%`;
+
+
+        petal.style.width =
+            `${size}px`;
+
+
+        petal.style.height =
+            `${size * 1.5}px`;
+
+
+        /*
+         * Posición y rotación aleatoria,
+         * pero completamente estática.
+         */
+        petal.style.transform =
+            `rotate(${Math.random() * 360}deg)`;
+
+
+        petal.style.animation =
+            "none";
+
+
+        petalsContainer.appendChild(
+            petal
+        );
+
+    }
+
+}
+
+
+createPetals();
+
+
+/* =========================================================
+   BOTÓN FINAL
+========================================================= */
+
+finalButton.addEventListener(
+    "click",
+    () => {
+
+        finalContainer.classList.remove(
+            "active"
+        );
+
+
+        setTimeout(
+            () => {
+
+                loveContainer.classList.add(
+                    "active"
+                );
+
+            },
+            500
+        );
+
+    }
+);
 
