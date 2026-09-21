@@ -159,3 +159,4 @@ enter.onclick=()=>{loading.classList.add("hidden");app.classList.remove("hidden"
 reset.onclick=e=>{
  e.stopPropagation();typed="";loveText.textContent="";started=false;heartVisible=false;heartProgress=0;hctx.clearRect(0,0,800,800);burst(W/2,H*.54,130);
 };
+
